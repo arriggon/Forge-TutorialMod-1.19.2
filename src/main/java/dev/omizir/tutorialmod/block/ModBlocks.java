@@ -1,6 +1,7 @@
 package dev.omizir.tutorialmod.block;
 
 import dev.omizir.tutorialmod.TutorialMod;
+import dev.omizir.tutorialmod.block.custom.JumpyBlock;
 import dev.omizir.tutorialmod.item.ModCreativeModeTab;
 import dev.omizir.tutorialmod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -58,6 +59,13 @@ public class ModBlocks {
                     .strength(6f)
                     .requiresCorrectToolForDrops(),
                     UniformInt.of(3, 7)
+            ), ModCreativeModeTab.TUTORIAL_TAB);
+
+    static final RegistryObject<Block> JUMPY_BLOCK = registerBlock("jumpy_block",
+            () -> new JumpyBlock(
+                    BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(6f)
+                    .requiresCorrectToolForDrops()
             ), ModCreativeModeTab.TUTORIAL_TAB);
 
 
