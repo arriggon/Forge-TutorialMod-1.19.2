@@ -2,6 +2,7 @@ package dev.omizir.tutorialmod.block;
 
 import dev.omizir.tutorialmod.TutorialMod;
 import dev.omizir.tutorialmod.block.custom.JumpyBlock;
+import dev.omizir.tutorialmod.block.custom.ZirconLampBlock;
 import dev.omizir.tutorialmod.item.ModCreativeModeTab;
 import dev.omizir.tutorialmod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -10,6 +11,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -21,6 +23,7 @@ import java.util.function.Supplier;
 
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, TutorialMod.MOD_ID);
+    public static final int ZIRCON_LAMP_LIGHT_LEVEL = 15;
 
     public static final RegistryObject<Block> ZIRCON_BLOCK = registerBlock("zircon_block",
             () -> new Block(
@@ -63,10 +66,17 @@ public class ModBlocks {
 
     static final RegistryObject<Block> JUMPY_BLOCK = registerBlock("jumpy_block",
             () -> new JumpyBlock(
-                    BlockBehaviour.Properties.of(Material.STONE)
+                    BlockBehaviour.Properties.of(Material.SPONGE)
                     .strength(6f)
-                    .requiresCorrectToolForDrops()
             ), ModCreativeModeTab.TUTORIAL_TAB);
+    static final RegistryObject<Block> ZIRCON_LAMP = registerBlock("zircon_lamp",
+                () -> new ZirconLampBlock(
+                        BlockBehaviour.Properties.of(Material.GLASS)
+                        .strength(1f)
+                        .lightLevel(state -> state.getValue(ZirconLampBlock.LIT)
+                                ? ZIRCON_LAMP_LIGHT_LEVEL : 0)
+                        .sound(SoundType.GLASS)
+                ), ModCreativeModeTab.TUTORIAL_TAB);
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
